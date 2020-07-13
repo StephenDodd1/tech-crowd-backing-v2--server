@@ -1,0 +1,5 @@
+[
+   {"post1": "body of post one and this post has no punctuation"},
+   {"post2": "body of post two, there is some punctuation."},
+   {"post3": "This post is properly formatted, including punctuation."}
+]
