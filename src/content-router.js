@@ -16,6 +16,36 @@ const posts = [
    datePosted: '2011-09-23'
 }
 ];
+const comments = [
+   {
+      commentId: 'com1',
+      postId: 'RED',
+      userId: 'StephenDodd1',
+      comment: 'A Golden Retriever Dog, or a Labrador Retriever?',
+      commentDate: '2011-09-23'
+   },
+   {
+      commentId: 'com2',
+      postId: 'YELLUR',
+      userId: 'StephenDodd1',
+      comment: 'A Golden Retriever Dog, or a Labrador Retriever?',
+      commentDate: '2011-09-23'
+   },   
+   {
+      commentId: 'com3',
+      postId: 'GREEN',
+      userId: 'StephenDodd1',
+      comment: 'A Golden Retriever Dog, or a Labrador Retriever?',
+      commentDate: '2011-09-23'
+   },   
+   {
+      commentId: 'com4',
+      postId: 'ORANGE',
+      userId: 'StephenDodd1',
+      comment: 'A Golden Retriever Dog, or a Labrador Retriever?',
+      commentDate: '2011-09-23'
+   }
+];
 
 contentRouter
    .route('/content/users')
@@ -29,6 +59,13 @@ contentRouter
    .get((req,res) => {
       const posts = POSTS.map(p => p);
       res.json(posts)
+   })
+
+contentRouter
+   .route('/content/comments')
+   .get((req,res) => {
+      const allComments = comments.map(p => p);
+      res.json(allComments)
    })
 
 contentRouter
@@ -64,7 +101,7 @@ contentRouter
    })
 
 contentRouter
-   .route(`/content/posts/:postId`)
+   .route('/content/posts/:postId')
    .patch(jsonBodyParser, (req,res,next) => {
       const { title, content, type } = req.body;
       const postUpdate = { 
@@ -85,7 +122,14 @@ contentRouter
       res.json(posts[posts.length-1])
    })
 
+contentRouter
+   .route('/content/comments/:commentId')
+   .delete((req,res) => {
 
+      let commentIndex = comments.findIndex(a => a.commentId == req.params.commentId)
+      comments.splice(commentIndex, 1)
+      res.status(204).end()
+   })
 
 
 module.exports = contentRouter
