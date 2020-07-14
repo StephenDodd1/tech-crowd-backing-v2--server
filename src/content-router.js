@@ -4,7 +4,6 @@ require('dotenv').config();
 const contentRouter = express.Router();
 const jsonBodyParser = express.json();
 const POSTS = require('./test-posts.json');
-const app = require('./app');
 
 const users = [
    {
@@ -105,16 +104,16 @@ contentRouter
    })
 
 contentRouter
-.route('/content/users')
-.post(jsonBodyParser, (req,res) => {
-   const { userName, password, fn, ln, dob, email } = req.body;
-   const newUser = {
-      userName,
-      password,
-      fn,
-      ln,
-      dob,
-      email
+   .route('/content/users')
+   .post(jsonBodyParser, (req,res) => {
+      const { userName, password, fn, ln, dob, email } = req.body;
+      const newUser = {
+         userName,
+         password,
+         fn,
+         ln,
+         dob,
+         email
    }
    users.push(newUser);
    res.json(users[users.length-1])
@@ -137,7 +136,7 @@ contentRouter
    })
 
 contentRouter
-   .route('/content/comments')
+   .route('/content/:postId/comments')
    .post(jsonBodyParser, (req,res) => {
       const { commentId, postId, userId, comment, commentDate } = req.body;
       const newComment = {
