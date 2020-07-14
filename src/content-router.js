@@ -4,9 +4,18 @@ require('dotenv').config();
 const contentRouter = express.Router();
 const jsonBodyParser = express.json();
 const POSTS = require('./test-posts.json');
+const app = require('./app');
 
 const users = [];
-const posts = [];
+const posts = [
+   {postId: 'RED',
+   userId: 'StephenDodd1',
+   title: 'Yellur',
+   content: 'A Golden Retriever Dog, or a Labrador Retriever?',
+   type: 'Technology',
+   datePosted: '2011-09-23'
+}
+];
 
 contentRouter
    .route('/content/users')
@@ -54,7 +63,27 @@ contentRouter
       res.send(posts[posts.length-1])
    })
 
-
+contentRouter
+   .route(`/content/posts/:postId`)
+   .patch(jsonBodyParser, (req,res,next) => {
+      const { title, content, type } = req.body;
+      const postUpdate = { 
+         title, 
+         content, 
+         type 
+      }
+      let postIndex = posts.findIndex((a) => a.post_id == req.params.post_id)
+         if(title) {
+            posts[postIndex].title = postUpdate.title;
+         }
+         if(content) {
+            posts[postIndex].content = postUpdate.content;
+         }
+         if(type) {
+            posts[postIndex].type = postUpdate.type;
+         }
+      res.json(posts[posts.length-1])
+   })
 
 
 
