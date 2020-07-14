@@ -6,15 +6,44 @@ const jsonBodyParser = express.json();
 const POSTS = require('./test-posts.json');
 const app = require('./app');
 
-const users = [];
+const users = [
+   {
+      userId: 'user1',
+      username: 'SteDo',
+      password: '1234',
+      fn: 'Ste',
+      ln: 'Do',
+      dob: '1966-07-15',
+      email: 'stedo@ste.do'
+   },
+   {
+      userId: 'user2',
+      username: 'randocomando',
+      password: 'ABCD',
+      fn: 'Steve',
+      ln: 'Rando',
+      dob: '1966-07-15',
+      email: 'rando@coman.do'
+   },
+   {
+      userId: 'user3',
+      username: 'mandoRan',
+      password: 'Fando',
+      fn: 'Steve',
+      ln: 'Mando',
+      dob: '1966-07-15',
+      email: 'mando@domo.man'
+   },
+];
 const posts = [
-   {postId: 'RED',
-   userId: 'StephenDodd1',
-   title: 'Yellur',
-   content: 'A Golden Retriever Dog, or a Labrador Retriever?',
-   type: 'Technology',
-   datePosted: '2011-09-23'
-}
+   {
+      postId: 'RED',
+      userId: 'StephenDodd1',
+      title: 'Yellur',
+      content: 'A Golden Retriever Dog, or a Labrador Retriever?',
+      type: 'Technology',
+      datePosted: '2011-07-15'
+   }
 ];
 const comments = [
    {
@@ -22,36 +51,43 @@ const comments = [
       postId: 'RED',
       userId: 'StephenDodd1',
       comment: 'A Golden Retriever Dog, or a Labrador Retriever?',
-      commentDate: '2011-09-23'
+      commentDate: '2011-07-15'
    },
    {
       commentId: 'com2',
       postId: 'YELLUR',
       userId: 'StephenDodd1',
       comment: 'A Golden Retriever Dog, or a Labrador Retriever?',
-      commentDate: '2011-09-23'
+      commentDate: '2011-07-15'
    },   
    {
       commentId: 'com3',
       postId: 'GREEN',
       userId: 'StephenDodd1',
       comment: 'A Golden Retriever Dog, or a Labrador Retriever?',
-      commentDate: '2011-09-23'
+      commentDate: '2011-07-15'
    },   
    {
       commentId: 'com4',
       postId: 'ORANGE',
       userId: 'StephenDodd1',
       comment: 'A Golden Retriever Dog, or a Labrador Retriever?',
-      commentDate: '2011-09-23'
+      commentDate: '2011-07-15'
    }
 ];
 
 contentRouter
    .route('/content/users')
    .get((req,res) => {
-      const userName = req.query.userName;
-      res.send(userName)
+      users.map(p => p)
+      res.send(users)
+   })
+
+contentRouter
+   .route('/content/users/:userId')
+   .get((req,res) => {
+      const user = users.filter(user => user.userId == req.params.userId)
+      res.json(user)
    })
 
 contentRouter
@@ -101,6 +137,21 @@ contentRouter
    })
 
 contentRouter
+   .route('/content/comments')
+   .post(jsonBodyParser, (req,res) => {
+      const { commentId, postId, userId, comment, commentDate } = req.body;
+      const newComment = {
+         commentId, 
+         postId, 
+         userId, 
+         comment, 
+         commentDate
+      }
+      posts.push(newComment)
+      res.send(comments[comments.length-1])
+   })
+
+contentRouter
    .route('/content/posts/:postId')
    .patch(jsonBodyParser, (req,res,next) => {
       const { title, content, type } = req.body;
@@ -124,8 +175,7 @@ contentRouter
 
 contentRouter
    .route('/content/comments/:commentId')
-   .delete((req,res) => {
-
+   .delete(jsonBodyParser,(req,res) => {
       let commentIndex = comments.findIndex(a => a.commentId == req.params.commentId)
       comments.splice(commentIndex, 1)
       res.status(204).end()
