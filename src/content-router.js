@@ -47,30 +47,30 @@ const posts = [
 const comments = [
    {
       commentId: 'com1',
-      postId: 'RED',
+      postId: 'jk!3',
       userId: 'StephenDodd1',
-      comment: 'A Golden Retriever Dog, or a Labrador Retriever?',
+      comment: 'Did you forget your capital letter',
       commentDate: '2011-07-15'
    },
    {
       commentId: 'com2',
-      postId: 'YELLUR',
+      postId: 'jk!4',
       userId: 'StephenDodd1',
-      comment: 'A Golden Retriever Dog, or a Labrador Retriever?',
+      comment: 'Good work.',
       commentDate: '2011-07-15'
    },   
    {
       commentId: 'com3',
-      postId: 'GREEN',
+      postId: 'jk!2',
       userId: 'StephenDodd1',
-      comment: 'A Golden Retriever Dog, or a Labrador Retriever?',
+      comment: 'Take an english class maybe??',
       commentDate: '2011-07-15'
    },   
    {
       commentId: 'com4',
-      postId: 'ORANGE',
+      postId: 'jk!4',
       userId: 'StephenDodd1',
-      comment: 'A Golden Retriever Dog, or a Labrador Retriever?',
+      comment: 'A Water Dog, or a Mountain Dog?',
       commentDate: '2011-07-15'
    }
 ];
@@ -97,9 +97,12 @@ contentRouter
    })
 
 contentRouter
-   .route('/content/comments')
+   .route('/content/:postId/comments')
    .get((req,res) => {
-      const allComments = comments.map(p => p);
+      console.log(req.params)
+      const filteredComments = comments.filter(post => post.postId == req.params.postId.toLowerCase())
+      const allComments = filteredComments.map(p => p);
+      console.log(allComments)
       res.json(allComments)
    })
 
