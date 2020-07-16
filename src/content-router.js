@@ -34,16 +34,6 @@ const users = [
       email: 'mando@domo.man'
    },
 ];
-const posts = [
-   {
-      postId: 'RED',
-      userId: 'StephenDodd1',
-      title: 'Yellur',
-      content: 'A Golden Retriever Dog, or a Labrador Retriever?',
-      type: 'Technology',
-      datePosted: '2011-07-15'
-   }
-];
 const comments = [
    {
       commentId: 'com1',
@@ -156,21 +146,23 @@ contentRouter
 contentRouter
    .route('/content/posts/:postId')
    .patch(jsonBodyParser, (req,res,next) => {
+      console.log(req.body)
       const { title, content, type } = req.body;
       const postUpdate = { 
          title, 
          content, 
          type 
       }
-      let postIndex = posts.findIndex((a) => a.post_id == req.params.post_id)
+      console.log(postUpdate, title, content, type)
+      let postIndex = POSTS.findIndex((a) => a.postId == req.params.postId)
          if(title) {
-            posts[postIndex].title = postUpdate.title;
+            POSTS[postIndex].title = postUpdate.title;
          }
          if(content) {
-            posts[postIndex].content = postUpdate.content;
+            POSTS[postIndex].content = postUpdate.content;
          }
          if(type) {
-            posts[postIndex].type = postUpdate.type;
+            POSTS[postIndex].type = postUpdate.type;
          }
       res.json(posts[posts.length-1])
    })
