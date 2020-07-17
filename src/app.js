@@ -1,23 +1,28 @@
 require('dotenv').config()
-const knex = require('knex')
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
-const { NODE_ENV } = require('./config')
-const { CLIENT_ORIGIN } = require('./config');
-const app = express();
+
+const { NODE_ENV, CLIENT_ORIGIN , DB_URL} = require('./config')
+
 const contentRouter = require('./content-router')
+const postsRouter = require('./posts-router/posts-router')
+const app = express()
 const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
   : 'common';
-const db = knex({
-   client: 'pg',
-   connection: process.env.DB_URL,
-})
+  const knex = require('knex')
 
-app.set('db', db)
+  const db = knex({
+    client: 'pg',
+    connection: DB_URL,
+  })
+  console.log('knex and driver installed correctly')
+  app.set('db', db)
+  
 
+  
 app.use(morgan(morganOption))
 app.use(helmet())
 app.use(
@@ -25,6 +30,7 @@ app.use(
         origin: CLIENT_ORIGIN
     })
 );
+app.use(postsRouter)
 app.use(contentRouter)
 app.use(function errorHandler(error, req, res, next) {
    let response
@@ -36,5 +42,8 @@ app.use(function errorHandler(error, req, res, next) {
    }
    res.status(500).json(response)
 })
+app.get('/', (req, res) => {
+   res.send('Hello, world!')
+ })
 
 module.exports = app

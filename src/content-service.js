@@ -1,9 +1,5 @@
-const contentService = {
-   getLatestPosts(knex) {
-      return knex
-         .select('*')
-         .from('posts')
-   },
+const ContentService = {
+   
    getUserId(knex) {
       return knex
          .select('userId')
@@ -11,3 +7,4 @@ const contentService = {
          .where(`userName = ${userName}`)
    }
 }
+module.exports = ContentService
