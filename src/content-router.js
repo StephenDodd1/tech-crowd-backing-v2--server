@@ -4,6 +4,7 @@ require('dotenv').config();
 const contentRouter = express.Router();
 const jsonBodyParser = express.json();
 const POSTS = require('./test-posts.json');
+const { v4: uuid } = require('uuid')
 
 const users = [
    {
@@ -37,28 +38,28 @@ const users = [
 const comments = [
    {
       commentId: 'com1',
-      postId: 'jk!3',
+      postId: 'Jk!3',
       userId: 'StephenDodd1',
       comment: 'Did you forget your capital letter',
       commentDate: '2011-07-15'
    },
    {
       commentId: 'com2',
-      postId: 'jk!4',
+      postId: 'Jk!4',
       userId: 'StephenDodd1',
       comment: 'Good work.',
       commentDate: '2011-07-15'
    },   
    {
       commentId: 'com3',
-      postId: 'jk!2',
+      postId: 'Jk!2',
       userId: 'StephenDodd1',
       comment: 'Take an english class maybe??',
       commentDate: '2011-07-15'
    },   
    {
       commentId: 'com4',
-      postId: 'jk!4',
+      postId: 'Jk!4',
       userId: 'StephenDodd1',
       comment: 'A Water Dog, or a Mountain Dog?',
       commentDate: '2011-07-15'
@@ -89,10 +90,8 @@ contentRouter
 contentRouter
    .route('/content/:postId/comments')
    .get((req,res) => {
-      console.log(req.params)
-      const filteredComments = comments.filter(post => post.postId == req.params.postId.toLowerCase())
+      const filteredComments = comments.filter(post => post.postId == req.params.postId)
       const allComments = filteredComments.map(p => p);
-      console.log(allComments)
       res.json(allComments)
    })
 
@@ -124,36 +123,41 @@ contentRouter
          type, 
          datePosted
       }
-      posts.push(newPost)
-      res.send(posts[posts.length-1])
+      console.log(newPost)
+      POSTS.push(newPost)
+      res.send(POSTS[POSTS.length-1])
    })
 
 contentRouter
-   .route('/content/:postId/comments')
+   .route('/content/:postId/comment')
    .post(jsonBodyParser, (req,res) => {
-      const { commentId, postId, userId, comment, commentDate } = req.body;
+      const { comment } = req.body;
+      const userId = 1;
+      const postId = req.params.postId;
+      const commentDate = `${new Date()}`;
+      const commentId = uuid();
       const newComment = {
          commentId, 
          postId, 
          userId, 
          comment, 
          commentDate
-      }
-      posts.push(newComment)
+      };
+      console.log(newComment)
+      comments.push(newComment)
       res.send(comments[comments.length-1])
    })
 
 contentRouter
    .route('/content/posts/:postId')
    .patch(jsonBodyParser, (req,res,next) => {
-      console.log(req.body)
       const { title, content, type } = req.body;
       const postUpdate = { 
          title, 
          content, 
          type 
       }
-      console.log(postUpdate, title, content, type)
+      console.log(postUpdate)
       let postIndex = POSTS.findIndex((a) => a.postId == req.params.postId)
          if(title) {
             POSTS[postIndex].title = postUpdate.title;
@@ -164,7 +168,7 @@ contentRouter
          if(type) {
             POSTS[postIndex].type = postUpdate.type;
          }
-      res.json(posts[posts.length-1])
+      res.json(POSTS[POSTS.length-1])
    })
 
 contentRouter
