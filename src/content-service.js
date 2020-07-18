@@ -1,10 +1,9 @@
 const ContentService = {
    
-   getUserId(knex, userId) {
+   getUserId(knex) {
       return knex
          .select('userId')
          .from('users')
-         .where('userid', userId)
    }
 }
 module.exports = ContentService

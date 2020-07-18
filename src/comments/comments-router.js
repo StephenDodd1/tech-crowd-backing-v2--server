@@ -16,8 +16,10 @@ const allComments = filteredComments.map(p => p);*/
 commentsRouter
    .route('/api/:postid/comments')
    .get((req, res, next) => {
-      const postId = req.params.postId;
-      CommentsService.getAllComments(req.app.get('db'), postId)
+      const postId = req.params.postid;
+      console.log(postId)
+      const knex = req.app.get('db');
+      CommentsService.getAllComments(knex, postId)
       .then(comments => {
          res.json(comments.map(serializeComments))})
    })

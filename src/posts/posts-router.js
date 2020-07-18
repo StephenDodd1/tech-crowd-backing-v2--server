@@ -16,7 +16,8 @@ const serializePosts = post => ({
 postsRouter
    .route('/api/posts/')
    .get((req, res, next) => {
-      PostsService.getLatestPosts(req.app.get('db'))
+      const knex = req.app.get('db');
+      PostsService.getLatestPosts(knex)
       .then(posts => {
          res.json(posts.map(serializePosts))})
    })

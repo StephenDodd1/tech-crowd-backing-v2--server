@@ -1,8 +1,14 @@
 const CommentsService = {
-   getAllComments(knex, userId){
+   getAllComments(knex, postId) {
+      console.log(postId)
       return knex 
          .select('*')
          .from('comments')
-         .where('userid', userId)
-   }
+         .where('post_id', postId)
+   },
+   //createComment(knex, comment) {
+     // return knex
+       //  .insert
+   //}
 }
+module.exports = CommentsService

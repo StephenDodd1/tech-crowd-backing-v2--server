@@ -8,6 +8,7 @@ const { NODE_ENV, CLIENT_ORIGIN , DB_URL} = require('./config')
 
 const contentRouter = require('./content-router')
 const postsRouter = require('./posts/posts-router')
+const commentsRouter = require('./comments/comments-router')
 const app = express()
 const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
@@ -32,6 +33,7 @@ app.use(
 );
 app.use(postsRouter)
 app.use(contentRouter)
+app.use(commentsRouter)
 app.use(function errorHandler(error, req, res, next) {
    let response
    if (NODE_ENV === 'production') {
