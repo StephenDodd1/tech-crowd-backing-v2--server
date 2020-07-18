@@ -1,5 +1,5 @@
 const express = require('express');
-const PostsService = require('../posts-service/posts-service')
+const PostsService = require('./posts-service')
 const postsRouter = express.Router();
 const jsonBodyParser = express.json();
 const Router = require('router')
@@ -17,8 +17,8 @@ postsRouter
    .route('/api/posts/')
    .get((req, res, next) => {
       PostsService.getLatestPosts(req.app.get('db'))
-      //posts => {
-      //   res.json(posts.map(serializePosts))}
-   }).then(res => res.json())
+      .then(posts => {
+         res.json(posts.map(serializePosts))})
+   })
 
 module.exports = postsRouter

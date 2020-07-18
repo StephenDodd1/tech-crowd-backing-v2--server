@@ -7,7 +7,7 @@ const helmet = require('helmet')
 const { NODE_ENV, CLIENT_ORIGIN , DB_URL} = require('./config')
 
 const contentRouter = require('./content-router')
-const postsRouter = require('./posts-router/posts-router')
+const postsRouter = require('./posts/posts-router')
 const app = express()
 const morganOption = (NODE_ENV === 'production')
   ? 'tiny'

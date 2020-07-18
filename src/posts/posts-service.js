@@ -1,9 +1,8 @@
 const PostsService = {
    getLatestPosts(knex) {
-      return 'all good'
-      /*return knex
+      return knex
          .select('*')
-         .from('posts')*/
+         .from('posts')
    },
 }
 

@@ -17,17 +17,6 @@ contentRouter
       res.json(user)
    })
 
-
-contentRouter
-   .route('/api/:postId/comments')
-   .get((req,res) => {
-      console.log(req.params)
-      const filteredComments = comments.filter(post => post.postId == req.params.postId.toLowerCase())
-      const allComments = filteredComments.map(p => p);
-      console.log(allComments)
-      res.json(allComments)
-   })
-
 contentRouter
    .route('/api/users')
    .post(jsonBodyParser, (req,res) => {
