@@ -34,6 +34,7 @@ app.use(
 app.use(postsRouter)
 app.use(contentRouter)
 app.use(commentsRouter)
+
 app.use(function errorHandler(error, req, res, next) {
    let response
    if (NODE_ENV === 'production') {

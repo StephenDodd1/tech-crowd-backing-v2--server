@@ -49,20 +49,6 @@ contentRouter
       res.send(posts[posts.length-1])
    })
 
-contentRouter
-   .route('/api/:postId/comments')
-   .post(jsonBodyParser, (req,res) => {
-      const { commentId, postId, userId, comment, commentDate } = req.body;
-      const newComment = {
-         commentId, 
-         postId, 
-         userId, 
-         comment, 
-         commentDate
-      }
-      posts.push(newComment)
-      res.send(comments[comments.length-1])
-   })
 
 contentRouter
    .route('/api/posts/:postId')
@@ -74,7 +60,6 @@ contentRouter
          content, 
          type 
       }
-      console.log(postUpdate, title, content, type)
       let postIndex = POSTS.findIndex((a) => a.postId == req.params.postId)
          if(title) {
             POSTS[postIndex].title = postUpdate.title;
@@ -88,12 +73,6 @@ contentRouter
       res.json(posts[posts.length-1])
    })
 
-contentRouter
-   .route('/api/comments/:commentId')
-   .delete(jsonBodyParser,(req,res) => {
-      let commentIndex = comments.findIndex(a => a.commentId == req.params.commentId)
-      comments.splice(commentIndex, 1)
-      res.status(204).end()
-   })
+
 
 module.exports = contentRouter

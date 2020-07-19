@@ -24,4 +24,44 @@ commentsRouter
          res.json(comments.map(serializeComments))})
    })
 
+commentsRouter
+   .route('/api/:postId/comment')
+   .post(jsonBodyParser, (req,res, next) => {
+      const post_id = req.params.postId;
+      const userid = 1
+      const { comment } = req.body;
+      const newComment = {
+         post_id, 
+         userid, 
+         comment
+      }
+      const knex = req.app.get('db');
+      CommentsService.createComment(knex, newComment)
+         .then(comment => {
+            if(!comment) {
+               return res.status(404).json({
+                  error: { message: `Comment doesn't exist` }
+               })
+            }
+            res.json(comment)
+         })
+         .catch(next)
+      })
+
+commentsRouter
+   .route('/api/comments/:comment_id')
+   .delete((req,res,next) => {
+      const comment_id = req.params.comment_id;
+      const knex = req.app.get('db');
+      CommentsService.createComment(knex, comment_id)
+         .then(comment => {
+            if(comment) {
+               return res.status(404).json({
+                  error: { message: 'Comment was not deleted'}
+               })
+            }
+            res.send(console.log('not deleted'))
+         })
+         .catch(next)
+      })
 module.exports = commentsRouter
