@@ -4,6 +4,11 @@ const PostsService = {
          .select('*')
          .from('posts')
    },
+   createPost(knex, post) {
+      return knex
+         .into('posts')
+         .insert(post)
+   }
 }
 
 module.exports = PostsService

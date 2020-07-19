@@ -10,8 +10,7 @@ const serializeComments = comment => ({
    postId: comment.post_id,
    comment: comment.comment,
    comment_date: comment.comment_date,
-})      /*const filteredComments = comments.filter(post => post.postId == req.params.postId.toLowerCase())
-const allComments = filteredComments.map(p => p);*/
+})     
 
 commentsRouter
    .route('/api/:postid/comments')
@@ -53,14 +52,14 @@ commentsRouter
    .delete((req,res,next) => {
       const comment_id = req.params.comment_id;
       const knex = req.app.get('db');
-      CommentsService.createComment(knex, comment_id)
+      CommentsService.deleteComment(knex, comment_id)
          .then(comment => {
-            if(comment) {
+            if(!comment) {
                return res.status(404).json({
                   error: { message: 'Comment was not deleted'}
                })
             }
-            res.send(console.log('not deleted'))
+            res.send(console.log('comment was deleted'))
          })
          .catch(next)
       })
