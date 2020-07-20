@@ -1,20 +1,20 @@
 const express = require('express');
-const ContentService = require('./content-service')
+const ContentService = require('./content-service');
 const contentRouter = express.Router();
 const jsonBodyParser = express.json();
 
 contentRouter
    .route('/api/users')
    .get((req,res) => {
-      users.map(p => p)
-      res.send(users)
+      users.map(p => p);
+      res.send(users);
    })
 
 contentRouter
    .route('/api/users/:userId')
    .get((req,res) => {
-      const user = users.filter(user => user.userId == req.params.userId)
-      res.json(user)
+      const user = users.filter(user => user.userId == req.params.userId);
+      res.json(user);
    })
 
 contentRouter
@@ -30,24 +30,8 @@ contentRouter
          email
    }
    users.push(newUser);
-   res.json(users[users.length-1])
+   res.json(users[users.length-1]);
 })
-
-contentRouter
-   .route('/api/posts')
-   .post(jsonBodyParser, (req,res) => {
-      const { postId, userId, title, content, type, datePosted } = req.body;
-      const newPost = {
-         postId, 
-         userId, 
-         title, 
-         content, 
-         type, 
-         datePosted
-      }
-      posts.push(newPost)
-      res.send(posts[posts.length-1])
-   })
 
 
 contentRouter
