@@ -2,14 +2,13 @@ const express = require("express");
 const PostsService = require("./posts-service");
 const postsRouter = express.Router();
 const jsonBodyParser = express.json();
-const Router = require("router");
-const { restart } = require("nodemon");
+const xss = require('xss')
 
 const serializePosts = (post) => ({
   postId: post.post_id,
   userId: post.userid,
-  title: post.title,
-  content: post.content,
+  title: xss(post.title),
+  content: xss(post.content),
   type: post.type,
   date_posted: post.date_posted,
 });
