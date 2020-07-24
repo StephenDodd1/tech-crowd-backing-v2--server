@@ -1,7 +1,6 @@
 require("dotenv").config();
 const app = require("../src/app");
 const knex = require("knex");
-const supertest = require("supertest");
 
 describe("comment endpoints test", () => {
   console.log("comments spec ran");
@@ -9,7 +8,7 @@ describe("comment endpoints test", () => {
   before("make knex instance", () => {
     db = knex({
       client: "pg",
-      connection: process.env.DB_TEST,
+      connection: process.env.TEST_DATABASE_URL,
     });
   });
 
@@ -19,27 +18,27 @@ describe("comment endpoints test", () => {
 
   describe("GET ", () => {
     it("GET endpoint for comments works", () => {
-      supertest(app).get("/api/1/comment").expect(200, "Got some comments!");
+      return supertest(app).get("/api/1/comments").expect(200);
     });
   });
   describe("POST ", () => {
     it("POST endpoint for comments works", () => {
-      supertest(app)
+      return supertest(app)
         .post("/api/1/comment", {
-          comment_id: 1,
+          comment_id: 10,
           post_id: 1,
           userid: 1,
           comment: "test",
           comment_date: new Date(),
         })
-        .expect(200, "Posted!");
+        .expect(200);
     });
   });
   describe("DELETE", () => {
      it("DELETE endpoint works for comments", () => {
-        supertest(app)
-          .delete("/api/1/comment")
-          .expect(200, "Deleted!")
+        return supertest(app)
+          .delete("/api/comments/1")
+          .expect(200)
      })
   })
 });

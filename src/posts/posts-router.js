@@ -16,7 +16,12 @@ const serializePosts = (post) => ({
 postsRouter.route("/api/posts/").get((req, res, next) => {
   const knex = req.app.get("db");
   PostsService.getLatestPosts(knex).then((posts) => {
-    res.json(posts.map(serializePosts));
+    if(!posts) {
+      res.status(404).json({
+        error: {message: "did not get post"}
+      })
+    }
+    res.status(200)//.json(posts.map(serializePosts));
   });
 });
 
@@ -36,7 +41,7 @@ postsRouter.route("/api/posts").post(jsonBodyParser, (req, res, next) => {
           error: { message: "post was not created" },
         });
       }
-      res.json(post);
+      res.status(200).json(post);
     })
     .catch(next);
 });
@@ -44,26 +49,25 @@ postsRouter.route("/api/posts").post(jsonBodyParser, (req, res, next) => {
 postsRouter.route("/api/posts/:postFilter").get((req, res, next) => {
   const knex = req.app.get("db");
   PostsService.searchPosts(knex, req.params.postFilter).then((posts) => {
-    res.json(posts.map(serializePosts));
+    res.status(200).json(posts.map(serializePosts));
   });
 
 postsRouter.route("/api/posts/:postid").patch(jsonBodyParser, (req,res,next) => {
   const knex = req.app.get("db");
   const { title, content, type } = req.body;
   const postId = req.params.postid;
-  const postUpdate = { 
-      postId,
+  const postUpdate = {
       title, 
       content, 
       type 
   }
-  PostsService.updatePost(knex, postUpdate).then((update) => {
+  PostsService.updatePost(knex, postId, postUpdate).then((update) => {
     if(!update) {
       res.status(404).json({
         error: { message: "post was not updated"}
       })
     }
-    res.json(update)
+    res.status(200).json(update)
   })
   .catch(next)
 })

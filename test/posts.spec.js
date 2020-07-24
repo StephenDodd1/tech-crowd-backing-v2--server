@@ -1,7 +1,6 @@
 require("dotenv").config();
 const app = require("../src/app");
 const knex = require("knex");
-const supertest = require("supertest");
 
 describe("posts endpoints test", () => {
   let db;
@@ -18,12 +17,12 @@ describe("posts endpoints test", () => {
 
   describe("GET ", () => {
     it("GET endpoint for posts works", () => {
-      supertest(app).get("/api/posts").expect(200, "Got some posts!");
+      return supertest(app).get("/api/posts").expect(200);
     });
   });
   describe("POST ", () => {
     it("POST endpoint for posts works", () => {
-      supertest(app)
+      return supertest(app)
         .post("/api/posts", {
           post_id: 1,
           userid: 1,
@@ -32,19 +31,19 @@ describe("posts endpoints test", () => {
           type: "Technology",
           comment_date: new Date(),
         })
-        .expect(200, "Posted!");
+        .expect(200);
     });
   });
   describe("UPDATE", () => {
     it("PATCH endpoint for posts works", () => {
-      supertest(app)
-        .patch("/api/posts/:postId", {
+      return supertest(app)
+        .patch("/api/posts/1", {
           userid: 1,
           title: "test",
           content: "test",
           type: "Technology",
         })
-        .expect(200, "Updated")
+        .expect(200)
     })
   })
 });

@@ -3,12 +3,13 @@ const CommentsService = require("./comments-service");
 const commentsRouter = express.Router();
 const jsonBodyParser = express.json();
 const Router = require("router");
+const xss = require('xss')
 
 const serializeComments = (comment) => ({
   commentId: comment.comment_id,
   userId: comment.userid,
   postId: comment.post_id,
-  comment: comment.comment,
+  comment: xss(comment.comment),
   comment_date: comment.comment_date,
 });
 
@@ -21,7 +22,7 @@ commentsRouter.route("/api/:postid/comments").get((req, res, next) => {
           error: { message: "Comments not available"}
         })
       }
-    res.json(comments.map(serializeComments));
+    res.status(200)//.json(comments.map(serializeComments));
   });
 });
 
@@ -44,7 +45,7 @@ commentsRouter
             error: { message: `Comment doesn't exist` },
           });
         }
-        res.json(comment);
+        res.status(200)//.json(comment);
       })
       .catch(next);
   });
@@ -59,7 +60,7 @@ commentsRouter.route("/api/comments/:comment_id").delete((req, res, next) => {
           error: { message: "Comment was not deleted" },
         });
       }
-      res.json(comment, "comment was deleted");
+      res.status(200)//.json(comment, "comment was deleted");
     })
     .catch(next);
 });
