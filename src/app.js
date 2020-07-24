@@ -4,9 +4,9 @@ const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
 
-const { NODE_ENV, CLIENT_ORIGIN, DB_URL } = require("./config");
+const { NODE_ENV, CLIENT_ORIGIN, DATABASE_URL } = require("./config");
 
-const contentRouter = require("./content-router");
+//const contentRouter = require("./content-router");
 const postsRouter = require("./posts/posts-router");
 const commentsRouter = require("./comments/comments-router");
 const usersRouter = require("./users/users-router");
@@ -17,7 +17,7 @@ const knex = require("knex");
 
 const db = knex({
   client: "pg",
-  connection: DB_URL,
+  connection: DATABASE_URL,
 });
 console.log("knex and driver installed correctly");
 app.set("db", db);
@@ -30,7 +30,7 @@ app.use(
   })
 );
 app.use(postsRouter);
-app.use(contentRouter);
+//app.use(contentRouter);
 app.use(commentsRouter);
 app.use(usersRouter);
 

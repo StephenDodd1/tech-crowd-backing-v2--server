@@ -46,5 +46,26 @@ postsRouter.route("/api/posts/:postFilter").get((req, res, next) => {
   PostsService.searchPosts(knex, req.params.postFilter).then((posts) => {
     res.json(posts.map(serializePosts));
   });
+
+postsRouter.route("/api/posts/:postid").patch(jsonBodyParser, (req,res,next) => {
+  const knex = req.app.get("db");
+  const { title, content, type } = req.body;
+  const postId = req.params.postid;
+  const postUpdate = { 
+      postId,
+      title, 
+      content, 
+      type 
+  }
+  PostsService.updatePost(knex, postUpdate).then((update) => {
+    if(!update) {
+      res.status(404).json({
+        error: { message: "post was not updated"}
+      })
+    }
+    res.json(update)
+  })
+  .catch(next)
+})
 });
 module.exports = postsRouter;

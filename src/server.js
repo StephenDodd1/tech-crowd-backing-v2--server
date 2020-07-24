@@ -1,5 +1,5 @@
 const app = require('./app')
-const { PORT, DB_URL } = require('./config')
+const { PORT } = require('./config')
 
 app.get('/api/*', (req, res) => {
   res.json({ok: true});

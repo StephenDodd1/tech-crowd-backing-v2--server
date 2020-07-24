@@ -17,6 +17,11 @@ commentsRouter.route("/api/:postid/comments").get((req, res, next) => {
   console.log(postId);
   const knex = req.app.get("db");
   CommentsService.getAllComments(knex, postId).then((comments) => {
+      if(!comments) {
+        return res.status(404).json({
+          error: { message: "Comments not available"}
+        })
+      }
     res.json(comments.map(serializeComments));
   });
 });
