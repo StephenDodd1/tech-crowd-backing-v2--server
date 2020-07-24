@@ -17,12 +17,13 @@ postsRouter.route("/api/posts/").get((req, res, next) => {
   const knex = req.app.get("db");
   PostsService.getLatestPosts(knex).then((posts) => {
     if(!posts) {
-      res.status(404).json({
+      return res.status(404).json({
         error: {message: "did not get post"}
       })
     }
-    res.status(200)//.json(posts.map(serializePosts));
-  });
+    return res.status(200)//.json(posts.map(serializePosts));
+  })
+  .catch(next)
 });
 
 postsRouter.route("/api/posts").post(jsonBodyParser, (req, res, next) => {
