@@ -17,7 +17,12 @@ describe("posts endpoints test", () => {
 
   describe("GET ", () => {
     it("GET endpoint for posts works", () => {
-      return supertest(app).get("/api/posts").expect(200);
+      return supertest(app).get("/api/posts").then(res=> {
+        if(!res.ok){
+          return res.status(404)
+        }
+        res.status(200)
+      }).expect(200);
     });
   });
   describe("POST ", () => {
