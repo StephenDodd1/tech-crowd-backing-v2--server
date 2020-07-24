@@ -17,25 +17,19 @@ describe("posts endpoints test", () => {
 
   describe("GET ", () => {
     it("GET endpoint for posts works", () => {
-      return supertest(app).get("/api/posts").then(res=> {
-        if(!res.ok){
-          return res.status(404)
-        }
-        res.status(200)
-      }).expect(200);
+      return supertest(app).get("/api/posts").expect(200);
     });
   });
   describe("POST ", () => {
     it("POST endpoint for posts works", () => {
+      const newPost = {
+          "userid": "1",
+          "title": "test",
+          "content": "test",
+          "type": "Technology"
+      };
       return supertest(app)
-        .post("/api/posts", {
-          post_id: 1,
-          userid: 1,
-          title: "test",
-          content: "test",
-          type: "Technology",
-          comment_date: new Date(),
-        })
+        .post("/api/posts", newPost)
         .expect(200);
     });
   });
