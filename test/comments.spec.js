@@ -10,9 +10,8 @@ describe("comment endpoints test", () => {
       client: "pg",
       connection: process.env.TEST_DATABASE_URL,
     });
-  });
-
   app.set("db", db);
+  });
 
   after("disconnect from db", () => db.destroy());
 
