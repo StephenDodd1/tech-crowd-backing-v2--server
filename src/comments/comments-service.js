@@ -1,6 +1,5 @@
 const CommentsService = {
    getAllComments(knex, postId) {
-      console.log(postId)
       return knex 
          .select('*')
          .from('comments')

@@ -14,7 +14,6 @@ const serializeComments = (comment) => ({
 
 commentsRouter.route("/api/:postid/comments").get((req, res, next) => {
   const postId = req.params.postid;
-  console.log(postId);
   const knex = req.app.get("db");
   CommentsService.getAllComments(knex, postId).then((comments) => {
       if(!comments) {
@@ -60,7 +59,7 @@ commentsRouter.route("/api/comments/:comment_id").delete((req, res, next) => {
           error: { message: "Comment was not deleted" },
         });
       }
-      res.send(console.log("comment was deleted"));
+      res.json(comment, "comment was deleted");
     })
     .catch(next);
 });
