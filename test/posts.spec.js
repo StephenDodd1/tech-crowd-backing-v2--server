@@ -29,18 +29,17 @@ describe("posts endpoints test", () => {
           "type": "Technology"
       };
       return supertest(app)
-        .post("/api/posts", newPost)
+        .post("/api/posts").send(newPost)
         .expect(200);
     });
   });
   describe("UPDATE", () => {
     it("PATCH endpoint for posts works", () => {
       return supertest(app)
-        .patch("/api/posts/1", {
-          userid: 1,
-          title: "test",
+        .patch("/api/posts/1").send({
+          title: "patched test",
           content: "test",
-          type: "Technology",
+          type: "Investment"
         })
         .expect(200)
     })

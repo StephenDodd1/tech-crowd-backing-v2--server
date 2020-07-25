@@ -22,14 +22,16 @@ describe("comment endpoints test", () => {
   });
   describe("POST ", () => {
     it("POST endpoint for comments works", () => {
+      const newComment = {
+        "post_id": 1,
+        "userid": 1,
+        "comment": "test"}
       return supertest(app)
-        .post("/api/1/comment", {
-          comment_id: 10,
-          post_id: 1,
-          userid: 1,
-          comment: "test",
-          comment_date: new Date(),
-        })
+        .post("/api/1/comment").send(
+          //"comment_id": 10,
+          newComment
+          //"comment_date": new Date(),
+        )
         .expect(200);
     });
   });

@@ -22,7 +22,7 @@ commentsRouter.route("/api/:postid/comments").get((req, res, next) => {
           error: { message: "Comments not available"}
         })
       }
-    res.status(200)//.json(comments.map(serializeComments));
+    res.status(200).send().json(comments.map(serializeComments));
   });
 });
 
@@ -45,7 +45,7 @@ commentsRouter
             error: { message: `Comment doesn't exist` },
           });
         }
-        res.status(200)//.json(comment);
+        res.status(200).send()//.json(comment);
       })
       .catch(next);
   });
@@ -60,7 +60,7 @@ commentsRouter.route("/api/comments/:comment_id").delete((req, res, next) => {
           error: { message: "Comment was not deleted" },
         });
       }
-      res.status(200)//.json(comment, "comment was deleted");
+      res.status(200).send().json(comment, "comment was deleted");
     })
     .catch(next);
 });

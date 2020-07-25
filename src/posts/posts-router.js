@@ -63,6 +63,7 @@ postsRouter.route("/api/posts/:postid").patch(jsonBodyParser, (req,res,next) => 
       type 
   }
   PostsService.updatePost(knex, postId, postUpdate).then((update) => {
+    console.log(postId)
     if(!update) {
       res.status(404).json({
         error: { message: "post was not updated"}
