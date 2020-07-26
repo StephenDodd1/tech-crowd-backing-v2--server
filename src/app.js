@@ -6,7 +6,6 @@ const helmet = require("helmet");
 
 const { NODE_ENV, CLIENT_ORIGIN, DATABASE_URL } = require("./config");
 
-//const contentRouter = require("./content-router");
 const postsRouter = require("./posts/posts-router");
 const commentsRouter = require("./comments/comments-router");
 const usersRouter = require("./users/users-router");
@@ -30,7 +29,6 @@ app.use(
   })
 );
 app.use(postsRouter);
-//app.use(contentRouter);
 app.use(commentsRouter);
 app.use(usersRouter);
 

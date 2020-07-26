@@ -12,12 +12,10 @@ const PostsService = {
       .where("title", "like", `%${postSearch}%`);
   },
   updatePost(knex, postId, update) {
-    console.log(postId, update)
     return knex
       .from("posts")
       .where("post_id",'=', postId)
       .update({
-        "userid": update.userid,
         "title": update.title,
         "content": update.content,
         "type": update.type
