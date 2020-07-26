@@ -6,11 +6,18 @@ const xss = require('xss')
 
 usersRouter
   .route('/api/users')
-  .get((req,res,next) => {
+  .get(jsonBodyParser, (req,res,next) => {
     const username = xss(req.body.username);
-    const password = xss(req.body.username);
-    UsersService.authenticateUser(req.app.get('db'), username, password)
-    res.json(username);
+    const password = xss(req.body.password);
+    UsersService.authenticateUser(req.app.get('db'), username, password).then(auth => {
+      if(!auth){
+        return auth.status(404).json({
+          error: { message: 'not authenticated'}
+        })
+      }
+    res.status(202).json(username);
+    })
+    .catch(next)
   })
 
 usersRouter

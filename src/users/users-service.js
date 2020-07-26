@@ -3,7 +3,8 @@ const UsersService = {
     return knex
       .select("*")
       .from("users")
-      .where("username", username, "password", password);
+      .where("username", username)
+      .andWhere("password", password)
   },
   createUser(knex, user) {
     return knex.into("users").insert(user);

@@ -28,9 +28,7 @@ describe("comment endpoints test", () => {
         "comment": "test"}
       return supertest(app)
         .post("/api/1/comment").send(
-          //"comment_id": 10,
           newComment
-          //"comment_date": new Date(),
         )
         .expect(200);
     });

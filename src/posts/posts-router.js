@@ -21,7 +21,7 @@ postsRouter.route("/api/posts/").get((req, res, next) => {
         error: {message: "did not get post"}
       })
     }
-    res.status(200).send()//.json(posts.map(serializePosts));
+    res.status(200).json(posts.map(serializePosts));
   })
   .catch(next)
 });
@@ -42,7 +42,7 @@ postsRouter.route("/api/posts").post(jsonBodyParser, (req, res, next) => {
           error: { message: "post was not created" },
         });
       }
-      res.status(200).send()//json(post);
+      res.status(200).json(post);
     })
     .catch(next);
 });
@@ -69,7 +69,7 @@ postsRouter.route("/api/posts/:postid").patch(jsonBodyParser, (req,res,next) => 
         error: { message: "post was not updated"}
       })
     }
-    res.status(200).send()//json(update)
+    res.status(200).json(update)
   })
   .catch(next)
 })
