@@ -1,5 +1,4 @@
 const app = require('./app')
-const express = require('express')
 const { PORT } = require('./config')
 
 app.get('/api/*', (req, res) => {
