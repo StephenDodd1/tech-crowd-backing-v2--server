@@ -56,7 +56,7 @@ postsRouter.route("/api/posts/:postFilter").get((req, res, next) => {
 postsRouter.route("/api/posts/:postid").patch(jsonBodyParser, (req,res,next) => {
   const knex = req.app.get("db");
   const { title, content, type } = req.body;
-  const postId = req.params.postid;
+  const postId = Number(req.params.postid);
   const postUpdate = {
       title, 
       content, 

@@ -14,7 +14,7 @@ const PostsService = {
   updatePost(knex, postId, update) {
     return knex
       .from("posts")
-      .where({post_id: postId})
+      .where("post_id",postId)
       .update({
         "title": update.title,
         "content": update.content,
