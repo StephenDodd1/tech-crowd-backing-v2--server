@@ -20,7 +20,10 @@ CREATE TABLE posts (
   title TEXT NOT NULL,
   content TEXT NOT NULL,
   type genre NOT NULL,
-  date_posted TIMESTAMPTZ DEFAULT now()
+  date_posted TIMESTAMPTZ DEFAULT now(),
+  CONSTRAINT posts_fk
+    FOREIGN KEY(userid)
+      REFERENCES users(userid)
 );
 
 DROP TABLE IF EXISTS comments;
@@ -30,5 +33,11 @@ CREATE TABLE comments (
   userid INTEGER NOT NULL,
   post_id INTEGER NOT NULL,
   comment TEXT NOT NULL,
-  comment_date TIMESTAMPTZ DEFAULT now()
+  comment_date TIMESTAMPTZ DEFAULT now(),
+  CONSTRAINT comments_fk
+    FOREIGN KEY(post_id)
+      REFERENCES posts(post_id)
+  CONSTRAINT user_comments_fk
+    FOREIGN KEY(userid)
+      REFERENCES users(userid)
 )
