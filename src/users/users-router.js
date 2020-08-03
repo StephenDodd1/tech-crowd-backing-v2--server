@@ -30,11 +30,14 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
   UsersService.authenticateUser(req.app.get("db"), tokenUsername, tokenPassword)
     .then((user) => {
       if (!user || user.password !== tokenPassword) {
+        console.log(user.password)
         return res.status(401).json({ error: "Unauthorized request" });
       }
       const jwtToken = createAuthToken({user})
-      res.json({jwtToken})
-    }).then(data => res.status(202).json(data))
+      console.log(jwtToken)
+      return res.json({jwtToken})
+    }).then(data => {
+      return res.status(202).json(data)})
 });
 
 usersRouter.route("/api/users").post(jsonBodyParser, (req, res, next) => {
