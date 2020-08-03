@@ -4,6 +4,7 @@ const usersRouter = express.Router();
 const jsonBodyParser = express.json();
 const jwt = require('jsonwebtoken')
 const xss = require("xss");
+const createAuthToken = require("./auth-token");
 
 usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
   const authToken = req.get("Authorization") || "";
@@ -31,8 +32,8 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
       if (!user || user.password !== tokenPassword) {
         return res.status(401).json({ error: "Unauthorized request" });
       }
-
-      
+      const jwtToken = createAuthToken({user})
+      res.json({jwtToken})
     }).then(data => res.status(202).json(data))
 });
 
