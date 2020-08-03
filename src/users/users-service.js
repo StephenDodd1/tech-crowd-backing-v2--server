@@ -1,10 +1,8 @@
 const UsersService = {
-  authenticateUser(knex, username, password) {
-    return knex
-      .select("*")
-      .from("users")
-      .where("username", username)
-      .andWhere("password", password)
+  authenticateUser(knex, tokenUsername) {
+    return knex('users')
+      .where({ 'username': tokenUsername })
+      .first()
   },
   createUser(knex, user) {
     return knex.into("users").insert(user);
