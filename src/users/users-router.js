@@ -2,7 +2,7 @@ const express = require("express");
 const UsersService = require("./users-service");
 const usersRouter = express.Router();
 const jsonBodyParser = express.json();
-const jwt = requruire('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 const xss = require("xss");
 
 usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
