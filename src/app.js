@@ -24,7 +24,9 @@ app.set("db", db);
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(
-  cors()
+  cors({
+    origin: CLIENT_ORIGIN,
+  })
 );
 app.use(postsRouter);
 app.use(commentsRouter);
