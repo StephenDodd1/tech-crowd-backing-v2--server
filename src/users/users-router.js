@@ -8,11 +8,13 @@ const createAuthToken = require("./auth-token");
 
 usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
   const authToken = req.get("Authorization") || "";
-
+  console.log('authToken: ', authToken)
   let basicToken;
   if (!authToken.toLowerCase().startsWith("basic")) {
+    console.log('no auth token')
     return res.status(401).json({ error: "Missing basic token" });
   } else {
+    console.log('yes auth token')
     basicToken = authToken.slice(6, authToken.length);
   }
   const [tokenUsername, tokenPassword] = Buffer.from(basicToken, "base64")
