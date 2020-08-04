@@ -15,7 +15,7 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
     return res.status(401).json({ error: "Missing basic token" });
   } else {
     console.log('yes auth token')
-    basicToken = authToken.slice(6, authToken.length);
+    basicToken = authToken.slice(6, authToken.indexOf(','));
   }
   const [tokenUsername, tokenPassword] = Buffer.from(basicToken, "base64")
     .toString()
