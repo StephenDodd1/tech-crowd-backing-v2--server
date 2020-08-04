@@ -36,8 +36,9 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
       }
       const jwtToken = createAuthToken({user})
       console.log(jwtToken)
-      return res.status(202).json({jwtToken})
-    }).catch(next)
+      return res.json({jwtToken})
+    }).then(data => {
+      return res.status(202).json(data)})
 });
 
 usersRouter.route("/api/users").post(jsonBodyParser, (req, res, next) => {
