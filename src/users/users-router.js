@@ -2,20 +2,20 @@ const express = require("express");
 const UsersService = require("./users-service");
 const usersRouter = express.Router();
 const jsonBodyParser = express.json();
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
 const xss = require("xss");
 const createAuthToken = require("./auth-token");
 
 usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
   const authToken = req.get("Authorization") || "";
-  console.log('authToken: ', authToken)
+  console.log("authToken: ", authToken);
   let basicToken;
   if (!authToken.toLowerCase().startsWith("basic")) {
-    console.log('no auth token')
+    console.log("no auth token");
     return res.status(401).json({ error: "Missing basic token" });
   } else {
-    console.log('yes auth token')
-    basicToken = authToken.slice(6, authToken.indexOf(','));
+    console.log("yes auth token");
+    basicToken = authToken.slice(6, authToken.indexOf(","));
   }
   const [tokenUsername, tokenPassword] = Buffer.from(basicToken, "base64")
     .toString()
@@ -29,16 +29,23 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
   }
   UsersService.authenticateUser(req.app.get("db"), tokenUsername, tokenPassword)
     .then((user) => {
-      console.log('user.password:', user.password, 'tokenPassword:', tokenPassword)
+      console.log(
+        "user.password:",
+        user.password,
+        "tokenPassword:",
+        tokenPassword
+      );
       if (!user || user.password !== tokenPassword) {
-        console.log(user.password)
+        console.log(user.password);
         return res.status(401).json({ error: "Unauthorized request" });
-      }
-      const jwtToken = createAuthToken({user})
-      console.log('jwtToken =', jwtToken)
-      return res.json({jwtToken})
-    }).then(data => {
-      return res.status(202).json(data)})
+      } else {const jwtToken = createAuthToken({ user });
+      console.log("jwtToken =", jwtToken);
+      return res.json({ jwtToken })};
+    })
+    .then((data) => {
+      return res.status(202).json(data);
+    })
+    .catch(next);
 });
 
 usersRouter.route("/api/users").post(jsonBodyParser, (req, res, next) => {
