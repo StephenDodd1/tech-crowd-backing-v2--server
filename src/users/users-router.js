@@ -7,8 +7,10 @@ const xss = require("xss");
 const createAuthToken = require("./auth-token");
 
 usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
-  const authToken = req.get("Authorization") || "";
+  const authParam = req.get("Authorization") || "";
+  const authToken = authParam.slice(0, authParam.indexOf(','))
   console.log("authToken: ", authToken);
+
   let basicToken;
   if (!authToken.toLowerCase().startsWith("basic")) {
     console.log("no auth token");
