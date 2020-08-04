@@ -37,6 +37,7 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
         "tokenPassword:",
         tokenPassword
       );
+      console.log('user is ', user)
       if (!user || user.password !== tokenPassword) {
         console.log(user.password);
         return res.status(401).json({ error: "Unauthorized request" });
