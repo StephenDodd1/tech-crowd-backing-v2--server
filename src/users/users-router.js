@@ -46,7 +46,7 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
       return res.json({ jwtToken, user })};
     })
     .then((data) => {
-      return res.status(202).json(data, data.user.userid );
+      return res.status(202).json(data);
     })
 });
 
