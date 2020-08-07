@@ -43,7 +43,8 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
         return res.status(401).json({ error: "Unauthorized request" });
       } else {const jwtToken = createAuthToken(user);
       console.log("jwtToken =", jwtToken);
-      return res.json({ jwtToken })};
+      const data = {jwtToken, user}
+      return res.json({ data })};
     })
     .then((data) => {
       return res.status(202).json(data);
