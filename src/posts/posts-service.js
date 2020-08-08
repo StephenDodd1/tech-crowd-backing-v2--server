@@ -1,5 +1,6 @@
 const PostsService = {
   getLatestPosts(knex) {
+    console.log('knex ran')
     return knex("posts")
       .join("users", "posts.userid", "=", "users.id")
       .select(
