@@ -6,7 +6,7 @@ const xss = require('xss')
 
 const serializePosts = (post) => ({
   postId: post.post_id,
-  userId: post.userid,
+  userId: post.username,
   title: xss(post.title),
   content: xss(post.content),
   type: post.type,
@@ -28,7 +28,6 @@ postsRouter.route("/api/posts/").get((req, res, next) => {
 
 postsRouter.route("/api/posts").post(jsonBodyParser, (req, res, next) => {
   const knex = req.app.get("db");
-  console.log(req)
   const { userid, title, content, type } = req.body;
   const newPost = {
     userid,
