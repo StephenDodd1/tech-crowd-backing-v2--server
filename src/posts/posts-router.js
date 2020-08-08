@@ -16,6 +16,7 @@ const serializePosts = (post) => ({
 postsRouter.route("/api/posts/").get((req, res, next) => {
   const knex = req.app.get("db");
   PostsService.getLatestPosts(knex).then((posts) => {
+    console.log('knex ran')
     if(!posts) {
       res.status(404).json({
         error: {message: "did not get post"}
