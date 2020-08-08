@@ -1,6 +1,15 @@
 const PostsService = {
   getLatestPosts(knex) {
-    return knex.select("posts.post_id", "users.username", "posts.title", "posts.content", "posts.title", "posts.date_posted").from("posts").innerJoin('users', 'posts.userid', 'users.id');
+    return knex("posts")
+      .join("users", "posts.userid", "=", "users.id")
+      .select(
+        "posts.post_id",
+        "users.username",
+        "posts.title",
+        "posts.content",
+        "posts.title",
+        "posts.date_posted"
+      );
   },
   createPost(knex, post) {
     return knex.into("posts").insert(post);
@@ -12,14 +21,11 @@ const PostsService = {
       .where("title", "like", `%${postSearch}%`);
   },
   updatePost(knex, postId, update) {
-    return knex
-      .from("posts")
-      .where("post_id",postId)
-      .update({
-        "title": update.title,
-        "content": update.content,
-        "type": update.type
-      });
+    return knex.from("posts").where("post_id", postId).update({
+      title: update.title,
+      content: update.content,
+      type: update.type,
+    });
   },
 };
 
