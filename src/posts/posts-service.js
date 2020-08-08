@@ -1,6 +1,6 @@
 const PostsService = {
   getLatestPosts(knex) {
-    return knex.select("*").from("posts");
+    return knex.select("*").from("posts").innerJoin('users', 'posts.userid', 'users.id');
   },
   createPost(knex, post) {
     return knex.into("posts").insert(post);
