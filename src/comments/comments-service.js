@@ -1,10 +1,17 @@
 const CommentsService = {
    getAllComments(knex, postId) {
-      return knex 
-         .select('*')
-         .from('comments')
-         .where('post_id', postId)
-   },
+      return knex("comments")
+      .join("users", "comments.userid", "=", "users.userid")
+      .select(
+        "comments.comment_id",
+        "users.username",
+        "comments.post_id",
+        "comments.comment",
+        "comments.comment_date"
+      )
+      .from('comments')
+      .where('post_id', postId);
+  },
    createComment(knex, comment) {
       return knex
          .into('comments')

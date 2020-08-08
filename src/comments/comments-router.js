@@ -7,7 +7,7 @@ const xss = require('xss')
 
 const serializeComments = (comment) => ({
   commentId: comment.comment_id,
-  userId: comment.userid,
+  userId: comment.username,
   postId: comment.post_id,
   comment: xss(comment.comment),
   comment_date: comment.comment_date,
