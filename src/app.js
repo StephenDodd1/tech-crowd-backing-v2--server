@@ -45,5 +45,8 @@ app.use(function errorHandler(error, req, res, next) {
 app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
+app.get('*', function(req, res, next) {
+  if (req.url === '/') return next();
+});
 
 module.exports = app;
