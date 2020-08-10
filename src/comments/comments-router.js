@@ -30,12 +30,13 @@ commentsRouter
   .route("/api/:postId/comment")
   .post(jsonBodyParser, (req, res, next) => {
     const post_id = req.params.postId;
-    const userid = 1;
-    const { comment } = req.body;
+    const { comment, userId } = req.body;
+    const comment_date = new Date();
     const newComment = {
       post_id,
-      userid,
+      userId,
       comment,
+      comment_date
     };
     const knex = req.app.get("db");
     CommentsService.createComment(knex, newComment)
