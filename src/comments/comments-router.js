@@ -30,6 +30,7 @@ commentsRouter
   .route("/api/:postId/comment")
   .post(jsonBodyParser, (req, res, next) => {
     const post_id = req.params.postId;
+    console.log(req.body.comment, 'and', req.body.userId)
     const { comment, userId } = req.body;
     const comment_date = new Date();
     const newComment = {
