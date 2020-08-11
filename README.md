@@ -1,26 +1,18 @@
-# Express Boilerplate!
+# TechCrowdBacking.com Server
 
-This is a boilerplate project used for starting new projects!
+This is the API for the forum at TechCrowdBacking.com.
 
-## Set up
+## About
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+This project was inspired by my enthusiasm for technology and stock trading. The idea is to bring together investors and the companies producing the tech that users believe in and stand behind.
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+Users can add and update posts, add and delete comments, and search posts by title.
 
-## Scripts
+## Instructions
 
-Start the application `npm start`
+Create an account in order to add posts or comments.
 
-Start nodemon for the application `npm run dev`
+## Tech
 
-Run the tests `npm test`
+Node.js, Express, jsonWebToken, morgan, cors, helment, knex, postgrator
 
-## Deploying
-
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
