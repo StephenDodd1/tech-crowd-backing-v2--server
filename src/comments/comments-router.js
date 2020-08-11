@@ -33,6 +33,7 @@ commentsRouter
     console.log(req.body.comment, 'and', req.body.userId)
     const { userid } = req.body.userId;
     const { comment } = req.body.comment;
+    console.log('postId is', post_id, ', userid is', userid, 'and comment is', comment)
     const newComment = {
       post_id,
       userid,
