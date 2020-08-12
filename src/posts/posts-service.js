@@ -7,7 +7,6 @@ const PostsService = {
         "users.username",
         "posts.title",
         "posts.content",
-        "posts.title",
         "posts.date_posted"
       );
   },
@@ -18,7 +17,8 @@ const PostsService = {
     return knex
       .select("*")
       .from("posts")
-      .where("title", "like", `%${postSearch}%`);
+      .where("title", "like", `%${postSearch}%`)
+      .orWhere("content", "like", `%${postSearch}%`);
   },
   updatePost(knex, postId, update) {
     return knex.from("posts").where("post_id", postId).update({

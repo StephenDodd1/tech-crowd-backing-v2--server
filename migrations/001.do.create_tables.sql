@@ -40,4 +40,4 @@ CREATE TABLE comments (
   CONSTRAINT user_comments_fk
     FOREIGN KEY(userid)
       REFERENCES users(userid)
-)
+);
