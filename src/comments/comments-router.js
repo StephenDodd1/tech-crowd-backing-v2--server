@@ -44,7 +44,7 @@ commentsRouter
       .then((comment) => {
         if (!comment) {
           return res.status(404).json({
-            error: { message: `Comment doesn't exist` },
+            error: { message: `Comment was not created` },
           });
         }
         res.status(200).json(comment);
