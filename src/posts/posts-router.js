@@ -54,7 +54,7 @@ postsRouter.route("/api/posts/:postFilter").get((req, res, next) => {
     res.status(200).json(posts.map(serializePosts));
   });
 
-postsRouter.route("/api/post/:postid").put(jsonBodyParser, (req,res,next) => {
+postsRouter.route("/api/post/:postid").patch(jsonBodyParser, (req,res,next) => {
   const knex = req.app.get("db");
   const { title, content, type } = req.body;
   const postId = Number(req.params.postid);
