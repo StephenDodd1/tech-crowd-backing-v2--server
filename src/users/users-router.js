@@ -8,7 +8,7 @@ const createAuthToken = require("./auth-token");
 
 usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
   const authParam = req.get("Authorization") || "";
-  const authToken = authParam.slice(0, authParam.indexOf(','))
+  const authToken = authParam.slice(0, authParam.indexOf(","));
   console.log("authToken: ", authToken);
 
   let basicToken;
@@ -31,14 +31,16 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
       if (!user || user.password !== tokenPassword) {
         console.log(user.password);
         return res.status(401).json({ error: "Unauthorized request" });
-      } else {const jwtToken = createAuthToken(user);
-      console.log("jwtToken =", jwtToken);
-      const data = {jwtToken, user}
-      return res.json({ data })};
+      } else {
+        const jwtToken = createAuthToken(user);
+        console.log("jwtToken =", jwtToken);
+        const data = { jwtToken, user };
+        return res.json({ data });
+      }
     })
     .then((data) => {
       return res.status(202).json(data);
-    })
+    });
 });
 
 usersRouter.route("/api/users").post(jsonBodyParser, (req, res, next) => {
