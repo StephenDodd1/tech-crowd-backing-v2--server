@@ -22,8 +22,8 @@ GET, POST and DELETE.
 
 ## Screenshots
 
-![image info](./src/Landing-Page.png)
-![image info](./src/Forum-Page.png)
+![image info](./Landing-Page.png)
+![image info](./Forum-Page.png)
 
 ## Tech
 
