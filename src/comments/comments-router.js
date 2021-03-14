@@ -33,11 +33,12 @@ commentsRouter
     console.log(req.body.comment, 'and', req.body.userId)
     const userid = req.body.userid;
     const comment = req.body.comment;
-    console.log('postId is', post_id, ', userid is', userid, 'and comment is', comment)
+    const comment_date = new Date();
     const newComment = {
       post_id,
       userid,
-      comment
+      comment,
+      comment_date
     };
     const knex = req.app.get("db");
     CommentsService.createComment(knex, newComment)
