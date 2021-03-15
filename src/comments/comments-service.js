@@ -5,6 +5,7 @@ const CommentsService = {
       .select(
         "comments.comment_id",
         "users.username",
+        "comments.userid",
         "comments.post_id",
         "comments.comment",
         "comments.comment_date"
