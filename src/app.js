@@ -25,7 +25,7 @@ app.use(morgan(morganOption));
 app.use(helmet());
 app.use(
   cors({
-    origin: 'https://techcrowdbacking.com',
+    origin: CLIENT_ORIGIN,
   })
 );
 app.use(postsRouter);
