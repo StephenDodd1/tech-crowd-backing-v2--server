@@ -26,6 +26,7 @@ app.use(helmet());
 app.use(
   cors({
     origin: "https://techcrowdbacking.com",
+    methods: "[GET,POST,UPDATE,DELETE"
   })
 );
 app.use(postsRouter);
