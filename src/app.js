@@ -23,13 +23,11 @@ const db = knex({
 console.log("knex and driver installed correctly");
 app.set("db", db);
 app.use(
-  cors()
+  cors({
+    'origin': 'https://techcrowdbacking.com',
+    'methods': 'DELETE, UPDATE,GET, POST'
+  })
 );
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header('Access-Control-Allow-Methods', 'DELETE, PUT, UPDATE, GET, POST');
-  next();
-});
 app.use(morgan(morganOption));
 app.use(helmet());
 
