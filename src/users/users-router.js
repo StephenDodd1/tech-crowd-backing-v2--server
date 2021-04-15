@@ -53,7 +53,7 @@ usersRouter.route("/api/users").post(jsonBodyParser, (req, res, next) => {
     dob,
     email,
   };
-  UsersService.createUser(req.app.get("db"), req.body)
+  UsersService.createUser(req.app.get("db"), newUser)
     .then((user) => {
       if (!user) {
         res.status(404).json({
