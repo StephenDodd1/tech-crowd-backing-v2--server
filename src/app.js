@@ -8,7 +8,7 @@ const { NODE_ENV, CLIENT_ORIGIN, DATABASE_URL } = require("./config");
 
 app.use(
   cors({
-    origin: CLIENT_ORIGIN
+    origin: 'https://techcrowdbacking.com'
   })
 );
 
