@@ -6,11 +6,7 @@ const helmet = require("helmet");
 
 const { NODE_ENV, CLIENT_ORIGIN, DATABASE_URL } = require("./config");
 
-app.use(
-  cors({
-    origin: 'https://techcrowdbacking.com'
-  })
-);
+
 
 const postsRouter = require("./posts/posts-router");
 const commentsRouter = require("./comments/comments-router");
@@ -26,7 +22,11 @@ const db = knex({
 });
 console.log("knex and driver installed correctly");
 app.set("db", db);
-
+app.use(
+  cors({
+    origin: 'https://techcrowdbacking.com'
+  })
+);
 app.use(morgan(morganOption));
 app.use(helmet());
 
